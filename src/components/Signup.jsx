@@ -80,7 +80,7 @@ const Signup = () => {
           );
           if (res.ok) {
             const data = await res.json();
-            console.log("signed up successfully ");
+            console.log("signed up successfully ",data);
             emailRef.current.value = "";
             passwordRef.current.value = "";
             passwordTwoRef.current.value = "";
