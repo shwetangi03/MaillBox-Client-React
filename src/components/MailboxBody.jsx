@@ -5,17 +5,22 @@ import { composeActions } from "./store/ComposeToggle";
 import axios from "axios";
 import MailInbox from "./MailInbox";
 import { InboxActions } from "./store/inboxToggle";
+import { MailItemActions } from "./store/MailFullBody";
+import MailItemBody from "./MailItemBody";
 
 const MailboxBody = () => {
   const dispatch = useDispatch();
   const isCompose = useSelector((state) => state.compose.isCompose);
   const isInbox = useSelector((state) => state.isInbox.isInbox);
+  const isClicked = useSelector((state) => state.mailItem.isClicked);
   var arr = [];
   const [msg, setMsg] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
 
   const composeHandler = (event) => {
     event.preventDefault();
     dispatch(composeActions.toggleCompose());
+    dispatch(MailItemActions.setCliked(false));
   };
 
   const loadInbox = async () => {
@@ -41,10 +46,8 @@ const MailboxBody = () => {
   useEffect(() => {
     loadInbox();
   }, []);
-  console.log(msg);
 
   const mails = msg.map((element) => {
-    console.log(element.body);
     return (
       <MailInbox
         body={element.body}
@@ -53,6 +56,7 @@ const MailboxBody = () => {
         receiver={element.receiver}
         key={element.id}
         id={element.id}
+        isRead={element.read}
       />
     );
   });
@@ -61,19 +65,44 @@ const MailboxBody = () => {
     dispatch(InboxActions.setInbox(false));
   };
   const inboxHandler = () => {
+    loadInbox();
     dispatch(InboxActions.setInbox(true));
+    dispatch(MailItemActions.setCliked(false));
   };
+
+  const counter = () => {
+    let c = 0;
+    msg.map((element) => {
+      if (!element.read) {
+        c++;
+      }
+      setTotalCount(c);
+    });
+  };
+
+  useEffect(() => {
+    counter();
+  }, [msg]);
 
   return (
     <div>
-      <div>
-        <div>
-          <button onClick={composeHandler}>Compose</button>
-          <div onClick={inboxHandler}>
-            <label>Inbox</label>
+      <div className="m-3 flex justify-center h-96 w-20 float-left pr-10">
+        <div className="p-3 h-full w-52 bg-slate-300 float-left ">
+          <button
+            className="bg-blue-500 p-1 pr-3 px-3 rounded-md ml-20 text-white"
+            onClick={composeHandler}
+          > 
+            Compose
+          </button>
+          <div className="p-3" onClick={inboxHandler}>
+            <label className="bg-gray-200 p-1 px-3 rounded-md ml-20 ">
+              Inbox{totalCount}
+            </label>
           </div>
-          <div onClick={sendboxHandler}>
-            <label>Sent</label>
+          <div className="p-2 pl-3" onClick={sendboxHandler}>
+            <label className="bg-gray-200 p-1 px-3 rounded-md ml-20">
+              Sent
+            </label>
           </div>
         </div>
       </div>
@@ -83,6 +112,11 @@ const MailboxBody = () => {
         </div>
       )}
       {!isCompose && isInbox && <div>{mails}</div>}
+      {isClicked && (
+        <div>
+          <MailItemBody />
+        </div>
+      )}
     </div>
   );
 };

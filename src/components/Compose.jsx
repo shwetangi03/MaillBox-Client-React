@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import parse from "html-react-parser"
+import parse from "html-react-parser";
 import axios from "axios";
-import "./Draft.css"
+import "./Draft.css";
 
 const Compose = () => {
   const emailRef = useRef();
@@ -21,9 +21,10 @@ const Compose = () => {
 
     const data = {
       sender: sender,
-      receiver:receiver,
+      receiver: receiver,
       subject: subjectRef.current.value,
       body: text,
+      read: false,
     };
 
     try {
@@ -51,7 +52,7 @@ const Compose = () => {
   };
 
   return (
-    <div>
+    <div className="pl-20 pt-3">
       <div className="p-1 border-2 border-gray-300 w-96 rounded-md ml-20">
         <label htmlFor="email">To:</label>
         <input
@@ -85,7 +86,7 @@ const Compose = () => {
         </div>
       </div>
 
-      <div >
+      <div>
         <button
           className="bg-blue-500 p-1 px-3 rounded-md ml-20"
           onClick={submitHandler}
