@@ -17,26 +17,33 @@ const MailInbox = (props) => {
     dispatch(InboxActions.setInbox(false));
 
     console.log(props.id);
-    const receiver = props.receiver;
-    const name = receiver.substring(0, receiver.lastIndexOf("@"));
-    const id = props.id;
-    const data = {
-      read: true,
-    };
-    try {
-      const res = await axios.patch(`https://mailbox-client-react-e2c67-default-rtdb.firebaseio.com/${name}/receive/${id}.json`,data)
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+    if (!props.isRead) {
+      const receiver = props.receiver;
+      const name = receiver.substring(0, receiver.lastIndexOf("@"));
+      const id = props.id;
+      const data = {
+        read: true,
+      };
+      try {
+        const res = await axios.patch(
+          `https://mailbox-client-react-e2c67-default-rtdb.firebaseio.com/${name}/receive/${id}.json`,
+          data
+        );
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   return (
     <div>
       <div onClick={mailBoxHandler}>
-        {!props.isRead &&<span className="props.isRead ? text-transparent : text-blue-400">
-          <GoDotFill />
-        </span>}
+        {!props.isRead && (
+          <span className="props.isRead ? text-transparent : text-blue-400">
+            <GoDotFill />
+          </span>
+        )}
         <label>{props.subject}</label>
         <label>{parse(props.body)}</label>
         <label>{props.sender}</label>
