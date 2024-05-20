@@ -1,13 +1,14 @@
 import React from "react";
 import parse from "html-react-parser";
 import { GoDotFill } from "react-icons/go";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MailItemActions } from "./store/MailFullBody";
 import { InboxActions } from "./store/inboxToggle";
 import axios from "axios";
 
 const MailInbox = (props) => {
   const dispatch = useDispatch();
+  const isSentbox = useSelector((state) => state.isInbox.setBox);
   console.log(props);
 
   const mailBoxHandler = async () => {
@@ -15,9 +16,10 @@ const MailInbox = (props) => {
     dispatch(MailItemActions.addNewItem(props));
     dispatch(MailItemActions.setCliked(true));
     dispatch(InboxActions.setInbox(false));
+    dispatch(InboxActions.setSentBox(false));
 
     console.log(props.id);
-    if (!props.isRead) {
+    if (!isSentbox && !props.isRead) {
       const receiver = props.receiver;
       const name = receiver.substring(0, receiver.lastIndexOf("@"));
       const id = props.id;
@@ -39,7 +41,7 @@ const MailInbox = (props) => {
   return (
     <div>
       <div onClick={mailBoxHandler}>
-        {!props.isRead && (
+        {!props.isRead && !isSentbox && (
           <span className="props.isRead ? text-transparent : text-blue-400">
             <GoDotFill />
           </span>

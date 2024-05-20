@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialValue = {
   isInbox: true,
+  setBox: false,
 };
 const InboxSlice = createSlice({
   name: "InboxVisible",
@@ -9,6 +10,9 @@ const InboxSlice = createSlice({
   reducers: {
     setInbox(state, action) {
       state.isInbox = action.payload;
+    },
+    setSentBox(state, action) {
+      state.setBox = action.payload;
     },
   },
 });
