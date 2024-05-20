@@ -23,7 +23,7 @@ const Navbar = () => {
       </NavLink>
 
       <NavLink
-        to="/expenses"
+        to="/mailbox"
         className="px-2 p-1 bg-gray-400 text-white rounded-lg"
       >
         Mail Box

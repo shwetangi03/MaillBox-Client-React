@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Signup from "./components/Signup";
 import WelcomePage from "./components/WelcomePage";
 import { Fragment } from "react";
+import MailboxBody from "./components/MailboxBody";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
 
         <Route path="/welcome">
           <WelcomePage />
+        </Route>
+
+        <Route path="/mailbox">
+          <MailboxBody />
         </Route>
       </Switch>
     </Fragment>
