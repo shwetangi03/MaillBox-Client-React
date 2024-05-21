@@ -9,7 +9,7 @@ const WelcomePage = () => {
 
     try {
       const res = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBFdlQTui429wZpw9CRTBvvYZAe66D9E7o",
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBOZmb_2dK80sMmQLWwglC1oqdBJyGt8ak",
         {
           method: "POST",
           body: JSON.stringify({
@@ -42,7 +42,7 @@ const WelcomePage = () => {
     const token = localStorage.getItem("JWTTOKEN");
     try {
       const res = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBFdlQTui429wZpw9CRTBvvYZAe66D9E7o",
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBOZmb_2dK80sMmQLWwglC1oqdBJyGt8ak",
         {
           method: "POST",
           body: JSON.stringify({

@@ -43,7 +43,7 @@ const MailboxBody = () => {
         }
       }
       const sendRes = await axios.get(
-        `https://mailbox-client-react-e2c67-default-rtdb.firebaseio.com/${name}/receive.json`
+        `https://mailbox-client-react-e2c67-default-rtdb.firebaseio.com/${name}/send.json`
       );
       if (sendRes.statusText === "OK") {
         let indexSend = 0;
@@ -116,6 +116,12 @@ const MailboxBody = () => {
 
   useEffect(() => {
     counter();
+  }, [msg]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      loadInbox();
+    }, 2000);
   }, [msg]);
 
   return (

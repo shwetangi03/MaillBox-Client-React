@@ -15,7 +15,7 @@ const Compose = () => {
     const receiver = emailRef.current.value;
     const sender = localStorage.getItem("Email");
 
-    const name = receiver.substring(0, receiver.lastIndexOf("@"));
+    const ename = receiver.substring(0, receiver.lastIndexOf("@"));
     const senderName = sender.substring(0, sender.lastIndexOf("@"));
     console.log(senderName);
 
@@ -29,7 +29,7 @@ const Compose = () => {
 
     try {
       const res = await axios.post(
-        `https://mailbox-client-react-e2c67-default-rtdb.firebaseio.com/${name}/receive.json`,
+        `https://mailbox-client-react-e2c67-default-rtdb.firebaseio.com/${ename}/receive.json`,
         data
       );
       console.log(res.statusText === "OK");
