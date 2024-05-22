@@ -1,14 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-import ComposeReducers from "./ComposeToggle";
-import InboxReducers from "./inboxToggle";
-import MailItemReducer from "./MailFullBody";
+import AuthSlice from "./AuthSlice";
+import ClassSlice from "./ClassSlice";
 
 const store = configureStore({
   reducer: {
-    compose: ComposeReducers,
-    isInbox: InboxReducers,
-    mailItem: MailItemReducer,
+    auth: AuthSlice.reducer,
+    class: ClassSlice.reducer,
   },
 });
 
